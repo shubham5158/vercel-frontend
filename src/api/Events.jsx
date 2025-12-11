@@ -5,8 +5,8 @@ export const createEventApi = async (payload) => {
   return res.data;
 };
 
-export const getEventsApi = async () => {
-  const res = await api.get("/events");
+export const getEventsApi = async (params = {}) => {
+  const res = await api.get("/events", { params });
   return res.data;
 };
 
