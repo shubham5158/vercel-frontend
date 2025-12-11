@@ -13,22 +13,23 @@ const AdminHomePage = () => {
   const [loading, setLoading] = useState(true);
 
   const load = async () => {
-    try {
-      setLoading(true);
-      const [eventsData, ordersData] = await Promise.all([
-        getEventsApi(),
-        getAdminOrdersApi(),
-      ]);
+  try {
+    setLoading(true);
+    const [eventsData, ordersData] = await Promise.all([
+      getEventsApi(),
+      getAdminOrdersApi(),
+    ]);
 
-      setEvents(eventsData || []);
-      setOrders(ordersData || []);
-    } catch (err) {
-      console.error(err);
-      toastError("Failed to load dashboard data");
-    } finally {
-      setLoading(false);
-    }
-  };
+    setEvents(eventsData?.events || []);
+    setOrders(ordersData || []);
+  } catch (err) {
+    console.error(err);
+    toastError("Failed to load dashboard data");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   useEffect(() => {
     load();
