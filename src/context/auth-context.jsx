@@ -37,8 +37,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (name, email, password) => {
     const data = await registerApi({ name, email, password });
-    localStorage.setItem("token", data.token);
-    await loadProfile();
+    return true;
   };
 
   const logout = () => {

@@ -25,7 +25,7 @@ const RegisterPage = () => {
     try {
       await register(form.name, form.email, form.password);
       toastSuccess("Account created successfully!");
-      navigate("/admin/events"); // or login page
+      navigate("/admin/login"); // or login page
     } catch (err) {
       toastError(err?.response?.data?.message || "Registration failed");
     }
