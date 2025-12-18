@@ -5,6 +5,7 @@ import {
   getUploadUrlApi,
   uploadToS3,
   getEventPhotosApi,
+  confirmUploadApi
 } from "../../api/Photos.jsx";
 import { toastSuccess, toastError } from "../../utils/toast.jsx";
 import toast from "react-hot-toast";
