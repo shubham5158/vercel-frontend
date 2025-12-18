@@ -34,10 +34,10 @@ const RegisterPage = () => {
   return (
     <div className="h-screen md:flex">
       {/* LEFT SIDE DESIGN */}
-      <div className="relative overflow-hidden md:flex w-1/2 bg-gradient-to-tr from-blue-800 to-purple-700 justify-around items-center hidden">
+      <div className="relative overflow-hidden md:flex w-1/2 bg-linear-to-tr from-blue-800 to-purple-700 justify-around items-center hidden">
         <div>
           <h1 className="text-white font-bold text-4xl font-sans">
-            YourApp
+            Hemant Gogawale Photostudio
           </h1>
           <p className="text-white mt-1">
             Secure registration with OTP verification
@@ -47,7 +47,7 @@ const RegisterPage = () => {
         {/* Decorative circles */}
         <div className="absolute -bottom-32 -left-40 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
         <div className="absolute -bottom-40 -left-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
-        <div className="absolute -top-40 -right-0 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
+        <div className="absolute -top-40 right-0 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
         <div className="absolute -top-20 -right-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
       </div>
 
