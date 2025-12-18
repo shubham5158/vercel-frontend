@@ -17,6 +17,7 @@ import AdminLayout from "./components/admin-layout.jsx";
 import AdminRoute from "./components/admin-route.jsx";
 import ClientLinkPage from "./pages/admin/client-link-page.jsx";
 import RegisterPage from "./pages/admin/RegisterPage.jsx";
+import VerifyOtpPage from "./pages/admin/VerifyOtpPage.jsx";
 
 const App = () => {
   return (
