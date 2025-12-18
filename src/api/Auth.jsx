@@ -9,3 +9,9 @@ export const registerApi = async ({ name, email, password }) => {
   const res = await client.post("/auth/register", { name, email, password });
   return res.data;
 };
+
+export const verifyOtpApi = async (email, otp) => {
+  const res = await api.post("/auth/verify-otp", { email, otp });
+  return res.data;
+};
+
