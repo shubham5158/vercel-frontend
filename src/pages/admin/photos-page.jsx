@@ -46,7 +46,11 @@ const PhotosPage = () => {
           contentType: file.type,
         });
 
+        // Upload to S3
         await uploadToS3(uploadUrl, file);
+
+        // 🔥 CONFIRM TO BACKEND
+        await confirmUploadApi(eventId, key);
       }
 
       toast.dismiss(t);

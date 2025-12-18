@@ -14,6 +14,12 @@ export const getUploadUrlApi = async ({
   return res.data;
 };
 
+export const confirmUploadApi = async (eventId, key) => {
+  const res = await api.post("/photos/confirm", { eventId, key });
+  return res.data;
+};
+
+
 // 2️⃣ Upload directly to S3
 export const uploadToS3 = async (uploadUrl, file) => {
   await fetch(uploadUrl, {
