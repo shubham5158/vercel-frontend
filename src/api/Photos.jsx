@@ -14,9 +14,20 @@ export const getUploadUrlApi = async ({
   return res.data;
 };
 
-export const confirmUploadApi = async (eventId, key) => {
-  const res = await api.post("/photos/confirm", { eventId, key });
-  return res.data;
+export const confirmUpload = async (event) => {
+  await connectDB();
+  const user = await requireAuth(event);
+
+  const { eventId, key } = JSON.parse(event.body);
+
+  const photo = await Photo.create({
+    event: eventId,
+    originalKey: key,
+    watermarkedKey: key.replace("/original/", "/preview/"),
+    createdBy: user._id,
+  });
+
+  return response(201, photo);
 };
 
 
