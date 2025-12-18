@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const data = await getProfileApi();
       setUser(data.user);
-    } catch (err) {
+    } catch {
       localStorage.removeItem("token");
       setUser(null);
     }
@@ -35,8 +35,13 @@ export const AuthProvider = ({ children }) => {
     await loadProfile();
   };
 
+  // ✅ OTP SAFE REGISTER
   const register = async (name, email, password) => {
-    const data = await registerApi({ name, email, password });
+    // 🔥 IMPORTANT: remove any old auth
+    localStorage.removeItem("token");
+    setUser(null);
+
+    await registerApi({ name, email, password });
     return true;
   };
 
