@@ -23,8 +23,8 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await register(form.name, form.email, form.password);
-      toastSuccess("OTP Sent Successfully!");
+     const res = await register(form.name, form.email, form.password);
+      toastSuccess(res.message || "OTP Sent Successfully!");
       navigate("/verify-otp", { state: { email: form.email } });
     } catch (err) {
       toastError(err?.response?.data?.message || "Registration failed");

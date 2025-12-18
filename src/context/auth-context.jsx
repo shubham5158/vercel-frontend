@@ -41,8 +41,8 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("token");
     setUser(null);
 
-    await registerApi({ name, email, password });
-    return true;
+    const data = await registerApi({ name, email, password });
+    return data;
   };
 
   const logout = () => {
