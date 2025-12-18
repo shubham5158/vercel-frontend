@@ -24,7 +24,7 @@ const RegisterPage = () => {
     e.preventDefault();
     try {
       await register(form.name, form.email, form.password);
-      toastSuccess("Account created successfully!");
+      toastSuccess("OTP Sent Successfully!");
       navigate("/verify-otp", { state: { email: form.email } });
     } catch (err) {
       toastError(err?.response?.data?.message || "Registration failed");
