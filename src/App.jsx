@@ -27,6 +27,7 @@ const App = () => {
       {/* Admin auth */}
       <Route path="/admin/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+       <Route path="/verify-otp" element={<VerifyOtpPage />} />
 
       {/* Admin protected area */}
       <Route
