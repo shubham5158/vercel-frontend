@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getEventApi } from "../../api/Events.jsx";
-import { getEventPhotosApi, uploadPhotosApi } from "../../api/Photos.jsx";
+import {
+  getUploadUrlApi,
+  uploadToS3,
+  getEventPhotosApi,
+} from "../../api/Photos.jsx";
 import { toastSuccess, toastError } from "../../utils/toast.jsx";
 import toast from "react-hot-toast";
 
@@ -35,11 +39,20 @@ const PhotosPage = () => {
     setUploading(true);
 
     try {
-      await uploadPhotosApi(eventId, files);
+      for (const file of files) {
+        const { uploadUrl, key } = await getUploadUrlApi({
+          eventId,
+          filename: file.name,
+          contentType: file.type,
+        });
+
+        await uploadToS3(uploadUrl, file);
+      }
+
       toast.dismiss(t);
       toastSuccess("Photos uploaded!");
       await load();
-    } catch {
+    } catch (err) {
       toast.dismiss(t);
       toastError("Upload failed");
     } finally {
