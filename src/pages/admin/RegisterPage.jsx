@@ -134,7 +134,7 @@ const RegisterPage = () => {
               </span>
               <span
                 className="text-sm text-indigo-600 cursor-pointer font-semibold hover:underline"
-                onClick={() => navigate("/login")}
+                onClick={() => navigate("/admin/login")}
               >
                 Login
               </span>
