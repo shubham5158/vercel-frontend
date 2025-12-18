@@ -31,39 +31,48 @@ const PhotosPage = () => {
     load();
   }, [eventId]);
 
-  const handleUpload = async (e) => {
-    e.preventDefault();
-    if (!files.length) return toastError("Select at least 1 file");
+ const handleUpload = async (e) => {
+  e.preventDefault();
 
-    const t = toast.loading("Uploading...");
-    setUploading(true);
+  if (!files.length) {
+    toastError("Select at least 1 file");
+    return;
+  }
 
-    try {
-      for (const file of files) {
-        const { uploadUrl, key } = await getUploadUrlApi({
-          eventId,
-          filename: file.name,
-          contentType: file.type,
-        });
+  const t = toast.loading("Uploading...");
+  setUploading(true);
 
-        // Upload to S3
-        await uploadToS3(uploadUrl, file);
+  try {
+    for (const file of files) {
+      // 1️⃣ Get upload URL
+      const { uploadUrl, key } = await getUploadUrlApi({
+        eventId,
+        filename: file.name,
+        contentType: file.type,
+      });
 
-        // 🔥 CONFIRM TO BACKEND
-        await confirmUploadApi(eventId, key);
-      }
+      // 2️⃣ Upload to S3
+      await uploadToS3(uploadUrl, file);
 
-      toast.dismiss(t);
-      toastSuccess("Photos uploaded!");
-      await load();
-    } catch (err) {
-      toast.dismiss(t);
-      toastError("Upload failed");
-    } finally {
-      setUploading(false);
-      setFiles([]);
+      // 3️⃣ CONFIRM upload (🔥 REQUIRED)
+      await confirmUploadApi({
+        eventId,
+        key,
+      });
     }
-  };
+
+    toast.dismiss(t);
+    toastSuccess("Photos uploaded successfully!");
+    await load(); // reload list
+  } catch (err) {
+    console.error(err);
+    toast.dismiss(t);
+    toastError("Upload failed");
+  } finally {
+    setUploading(false);
+    setFiles([]);
+  }
+};
 
   return (
     <div className="space-y-6">
