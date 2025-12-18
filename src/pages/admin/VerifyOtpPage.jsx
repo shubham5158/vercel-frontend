@@ -10,15 +10,24 @@ const VerifyOtpPage = () => {
 
   const [otp, setOtp] = useState("");
 
-  const handleVerify = async () => {
-    try {
-      await verifyOtpApi(email, otp);
-      toastSuccess("Email verified successfully!");
-      navigate("/admin/login");
-    } catch {
-      toastError("Invalid or expired OTP");
+ const handleVerify = async () => {
+  try {
+    if (!otp || otp.length !== 6) {
+      toastError("Enter 6 digit OTP");
+      return;
     }
-  };
+
+    await verifyOtpApi(email, String(otp).trim());
+
+    toastSuccess("Email verified successfully!");
+    navigate("/admin/login");
+  } catch (err) {
+    toastError(
+      err?.response?.data?.message || "Invalid or expired OTP"
+    );
+  }
+};
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-950 text-white">
@@ -27,7 +36,8 @@ const VerifyOtpPage = () => {
 
         <input
           value={otp}
-          onChange={(e) => setOtp(e.target.value)}
+          onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
+          maxLength={6}
           placeholder="Enter OTP"
           className="w-full px-3 py-2 mb-3 bg-slate-900 border border-slate-700 rounded"
         />
